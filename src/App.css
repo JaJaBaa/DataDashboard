@@ -44,23 +44,56 @@
 
 .dashboard {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
+  gap: 1.5rem;
+}
+
+.sidebar {
+  width: 280px;
+  position: sticky;
+  top: 1rem;
+  align-self: flex-start;
+  padding-right: 1rem;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
 header {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 header h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #e67e22;
+  margin: 0;
+}
+
+.back-link {
+  padding: 0.5rem 1rem;
+  background-color: #e67e22;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.back-link:hover {
+  background-color: #d35400;
+  color: white;
 }
 
 .stats-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -69,7 +102,6 @@ header h1 {
   background-color: #2d3436;
   border-radius: 8px;
   padding: 1.2rem;
-  flex: 1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -82,31 +114,40 @@ header h1 {
 .stat-card p {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #fff; /* Changed to white for better visibility */
+  color: #fff;
 }
 
 .filters {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.5rem; /* Increased gap between elements */
+  flex-direction: column;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .search-container {
-  flex: 3; /* Reduced from 2 to give more space to search */
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 1rem;
 }
 
 .cuisine-filter {
-  flex: 2; /* Increased from 1 to give more space for label and select */
+  width: 100%;
   display: flex;
-  align-items: center;
-  gap: 0.75rem; /* Increased gap between label and select */
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .cuisine-filter label {
-  white-space: nowrap; /* Prevents the label from wrapping */
-  font-size: 0.9rem; /* Making label slightly smaller */
+  font-size: 0.9rem;
+  text-align: left;
 }
 
 .cuisine-filter select {
@@ -116,12 +157,45 @@ header h1 {
   background-color: #1a1a1a;
   color: #fff;
   font-size: 1rem;
+  width: 100%;
+}
+
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.chart-card {
+  background-color: #2d3436;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1 1 300px;
+  max-width: 550px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-card h3 {
+  color: #e67e22;
+  margin-bottom: 1rem;
+  align-self: flex-start;
 }
 
 .recipes-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+.recipe-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .recipe-card {
@@ -136,7 +210,8 @@ header h1 {
   transform: translateY(-5px);
 }
 
-.recipe-image {
+.recipe-image,
+.detail-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
@@ -173,6 +248,133 @@ header h1 {
   color: #888;
 }
 
+/* Recipe Detail Styles */
+.recipe-detail {
+  background-color: #2d3436;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-detail-header {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.detail-image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.detail-header-info {
+  flex: 1;
+  text-align: left;
+}
+
+.detail-header-info h2 {
+  font-size: 1.8rem;
+  color: #e67e22;
+  margin-bottom: 1rem;
+}
+
+.recipe-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.vegetarian {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
+.vegan {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+.gluten-free {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.dairy-free {
+  background-color: #9b59b6;
+  color: #fff;
+}
+
+.recipe-summary,
+.recipe-ingredients,
+.recipe-instructions {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.recipe-summary h3,
+.recipe-ingredients h3,
+.recipe-instructions h3 {
+  color: #e67e22;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.recipe-ingredients ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.recipe-ingredients li {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 992px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: static;
+    margin-bottom: 1.5rem;
+    padding-right: 0;
+  }
+
+  .stats-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .stat-card {
+    flex: 1 1 30%;
+  }
+
+  .chart-card {
+    max-width: 100%;
+  }
+
+  .recipe-detail-header {
+    flex-direction: column;
+  }
+
+  .detail-image {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 768px) {
   .stats-container {
     flex-direction: column;
@@ -188,7 +390,48 @@ header h1 {
     margin-bottom: 1rem;
   }
 
-  .cuisine-filter {
-    justify-content: space-between;
+  .charts-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart-card {
+    width: 100%;
+  }
+}
+
+/* Add this media query specifically to fix the text color in light mode */
+@media (prefers-color-scheme: light) {
+  .stat-card p {
+    color: #000; /* Set text to black in light mode */
+  }
+  
+  .stat-card h3 {
+    color: #d35400; /* Orange color for headings in light mode */
+  }
+  
+  .recipe-detail {
+    background-color: #fff;
+  }
+  
+  .recipe-detail-header-info h2,
+  .recipe-summary h3, 
+  .recipe-ingredients h3, 
+  .recipe-instructions h3 {
+    color: #d35400;
+  }
+  
+  .recipe-summary, 
+  .recipe-ingredients li, 
+  .recipe-instructions {
+    color: #333;
+  }
+  
+  .chart-card {
+    background-color: #fff;
+  }
+  
+  .chart-card h3 {
+    color: #d35400;
   }
 }
